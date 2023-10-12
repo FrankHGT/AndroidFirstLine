@@ -1,5 +1,6 @@
 package com.example.helloworld
 
+import java.util.Locale
 import kotlin.math.max
 
 fun main() {
@@ -44,6 +45,78 @@ fun main() {
     println("cellphone1 equals cellphone2 " + (cellphone1 == cellphone2))
 
     Singleton.singletonTest()
+
+    lambda()
+}
+
+fun lambda() {
+    // collections
+    val list = ArrayList<String>()
+    list.add("Apple")
+    list.add("Banana")
+    list.add("Orange")
+    list.add("Pear")
+    list.add("Grape")
+
+    val list2 = listOf("Apple", "Banana", "Orange", "Pear", "Grape")
+
+    for (fruit in list) {
+        println(fruit)
+    }
+
+    val map = mapOf("apple" to 1, "banana" to 2, "orange" to 3, "pear" to 4, "grape" to 5)
+
+    for ((fruit, number) in map) {
+        println("fruit is $fruit, number is $number")
+    }
+
+    var maxLengthFruit = ""
+    for (fruit in list2) {
+        if (fruit.length > maxLengthFruit.length) {
+            maxLengthFruit = fruit
+        }
+    }
+    println("max length fruit is $maxLengthFruit")
+
+    val maxLengthFruit2 = list.maxBy { it.length }
+    println("max length fruit is $maxLengthFruit2")
+
+    val lambda = { fruit: String -> fruit.length }
+    val maxLengthFruit3 = list.maxBy(lambda)
+    val maxLengthFruit4 = list.maxBy({ fruit: String -> fruit.length })
+    val maxLengthFruit5 = list.maxBy() { fruit: String -> fruit.length }
+    val maxLengthFruit6 = list.maxBy { fruit: String -> fruit.length }
+    val maxLengthFruit7 = list.maxBy { fruit -> fruit.length }
+
+    val newList = list.map { it.uppercase() }
+    for (fruit in newList) {
+        println(fruit)
+    }
+
+    val newList2 = list.filter { it.length <= 5 }
+                       .map { it.uppercase() }
+    for (fruit in newList) {
+        println(fruit)
+    }
+
+    val anyResult = list.any { it.length <= 5 }
+    val allResult = list.all { it.length <= 5 }
+    println("anyResult is $anyResult, allResult is $allResult")
+
+    val thread = Thread(object : Runnable {
+        override fun run() {
+            println("Thread is running")
+        }
+    }).start()
+
+    Thread {
+        println("Another thread is running")
+    }.start()
+
+    printParams(123)
+
+    // pass parameters by key-value
+    printParams(str = "world", num = 123)
 }
 
 fun doStudy(study: Study) {
@@ -95,4 +168,32 @@ fun checkNumber(num: Number) {
         else -> println("number not support")
     }
 }
+
+fun doStudyUnsafe(study: Study?) {
+    study?.readBooks()
+    study?.doHomework()
+}
+
+fun getTextLength(text: String?) = text?.length ?: 0;
+
+fun nullPointerException() {
+    doStudyUnsafe(null)
+
+    if (content != null) {
+        printUpperCase()
+    }
+}
+
+var content: String? = "Hello"
+
+fun printUpperCase() {
+    val upperCase = content!!.uppercase()
+    println(upperCase)
+}
+
+// parameter default value
+fun printParams(num: Int, str: String = "hello") {
+    println("num is $num, str is $str")
+}
+
 
