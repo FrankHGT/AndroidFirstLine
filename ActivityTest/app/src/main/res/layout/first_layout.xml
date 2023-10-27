@@ -34,4 +34,10 @@
         android:layout_height="wrap_content"
         android:text="Open Browser Button" />
 
+    <Button
+        android:id="@+id/pass_data_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pass data Button" />
+
 </LinearLayout>

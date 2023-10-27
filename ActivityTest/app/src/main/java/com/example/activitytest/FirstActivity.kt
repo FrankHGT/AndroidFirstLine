@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
@@ -38,6 +39,13 @@ class FirstActivity : AppCompatActivity() {
             intent.data = Uri.parse("https://www.baidu.com")
             startActivity(intent)
         }
+        val passDataButton: Button = findViewById(R.id.pass_data_button)
+        passDataButton.setOnClickListener {
+            val data = "Hello SecondActivity"
+            val intent = Intent(this, SecondActivity::class.java)
+            intent.putExtra("extra_data", data)
+            startActivityForResult(intent, 1)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -53,5 +61,15 @@ class FirstActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT).show()
         }
         return true
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            1 -> if (resultCode == RESULT_OK) {
+                val returnedData = data?.getStringExtra("data_return")
+                Log.d("FirstActivity", "returned data is $returnedData")
+            }
+        }
     }
 }

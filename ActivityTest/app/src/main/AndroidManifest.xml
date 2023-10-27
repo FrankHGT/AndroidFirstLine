@@ -23,10 +23,10 @@
         </activity>
         <activity
             android:name=".SecondActivity"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.example.activitytest.ACTION_START" />
-
+                <category android:name="com.example.activitytest.MY_CATEGORY" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.MY_CATEGORY" />
             </intent-filter>
