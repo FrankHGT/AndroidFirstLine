@@ -10,13 +10,19 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
 
-class FirstActivity : AppCompatActivity() {
+class FirstActivity : BaseActivity() {
+
+    private val tag = "FirstActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(tag, "Task id is $taskId")
+        Log.d("FirstActivity", this.toString())
         setContentView(R.layout.first_layout)
         val button1: Button = findViewById(R.id.button1)
         button1.setOnClickListener {
             Toast.makeText(this, "You clicked Button 1", Toast.LENGTH_SHORT).show()
+
+            SecondActivity.actionStart(this, "1", "2")
         }
         val finishButton: Button = findViewById(R.id.finish_button)
         finishButton.setOnClickListener {
@@ -71,5 +77,10 @@ class FirstActivity : AppCompatActivity() {
                 Log.d("FirstActivity", "returned data is $returnedData")
             }
         }
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.d(tag, "onRestart")
     }
 }
