@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private val msgList = ArrayList<Msg>()
 
-    private var adapter: MsgAdapter? = null
+    private lateinit var adapter: MsgAdapter
 
     private lateinit var binding: ActivityMainBinding
 
@@ -23,7 +23,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         initMsg()
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        adapter = MsgAdapter(msgList)
+        if (!::adapter.isInitialized) {
+            adapter = MsgAdapter(msgList)
+        }
         binding.recyclerView.adapter = adapter
 
         binding.send.setOnClickListener(this)
@@ -36,7 +38,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 if (content.isNotEmpty()) {
                     val msg = Msg(content, Msg.TYPE_SENT)
                     msgList.add(msg)
-                    adapter?.notifyItemInserted(msgList.size - 1)
+                    adapter.notifyItemInserted(msgList.size - 1)
                     binding.recyclerView.scrollToPosition(msgList.size - 1)
                     binding.inputText.setText("")
                 }
