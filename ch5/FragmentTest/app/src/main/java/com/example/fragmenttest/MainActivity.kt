@@ -32,14 +32,14 @@ class MainActivity : AppCompatActivity() {
 //            Log.d(TAG, "button clicked.")
 //            replaceFragment(AnotherRightFragment())
 //        }
-        replaceFragment(RightFragment())
+//        replaceFragment(RightFragment())
     }
 
-    fun replaceFragment(fragment: Fragment) {
-        val fragmentManager = supportFragmentManager
-        val transaction = fragmentManager.beginTransaction()
-        transaction.replace(R.id.rightLayout, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
-    }
+//    fun replaceFragment(fragment: Fragment) {
+//        val fragmentManager = supportFragmentManager
+//        val transaction = fragmentManager.beginTransaction()
+//        transaction.replace(R.id.rightLayout, fragment)
+//        transaction.addToBackStack(null)
+//        transaction.commit()
+//    }
 }

@@ -28,7 +28,7 @@ class LeftFragment : Fragment() {
         val binding = LeftFragmentBinding.bind(view)
         binding.button.setOnClickListener {
             Log.d(TAG, "button clicked.")
-            (activity as MainActivity).replaceFragment(AnotherRightFragment())
+//            (activity as MainActivity).replaceFragment(AnotherRightFragment())
         }
     }
 
