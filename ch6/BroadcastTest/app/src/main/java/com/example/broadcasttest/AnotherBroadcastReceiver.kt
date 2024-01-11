@@ -11,5 +11,7 @@ class AnotherBroadcastReceiver : BroadcastReceiver() {
         // This method is called when the BroadcastReceiver is receiving an Intent broadcast.
         Toast.makeText(context, "received in AnotherBroadcastReceiver", Toast.LENGTH_SHORT)
             .show()
+        // 截断广播
+        abortBroadcast()
     }
 }
