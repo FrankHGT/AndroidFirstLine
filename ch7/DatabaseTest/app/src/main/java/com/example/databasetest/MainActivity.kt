@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.example.databasetest.databinding.ActivityMainBinding
+import java.lang.Exception
+import java.lang.NullPointerException
 
 class MainActivity : AppCompatActivity() {
 
@@ -66,6 +68,25 @@ class MainActivity : AppCompatActivity() {
                     Log.d(TAG, "book price is $price")
                 } while (cursor.moveToNext())
                 cursor.close()
+            }
+        }
+        binding.replaceData.setOnClickListener {
+            val db = dbHelper.writableDatabase
+            db.beginTransaction()
+            try {
+                db.delete("Book", null, null)
+                val values = ContentValues().apply {
+                    put("name", "Game of Thrones")
+                    put("author", "George Martin")
+                    put("pages", 720)
+                    put("price", 20.85)
+                }
+                db.insert("Book", null, values)
+                db.setTransactionSuccessful()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            } finally {
+                db.endTransaction()
             }
         }
     }
