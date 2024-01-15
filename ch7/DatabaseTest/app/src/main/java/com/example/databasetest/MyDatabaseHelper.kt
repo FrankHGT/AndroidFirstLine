@@ -9,6 +9,10 @@ import android.widget.Toast
 class MyDatabaseHelper(private val context: Context, name: String, version: Int)
     : SQLiteOpenHelper(context, name, null, version) {
 
+    companion object {
+        private const val TAG = "MyDatabaseHelper"
+    }
+
     private val createBook = "create table Book (" +
             " id integer primary key autoincrement," +
             "author text," +
@@ -27,7 +31,7 @@ class MyDatabaseHelper(private val context: Context, name: String, version: Int)
         }
         db?.execSQL(createBook)
         db?.execSQL(createCategory)
-        Toast.makeText(context, "Create succeeded", Toast.LENGTH_SHORT).show()
+        Log.d(TAG, "Create succeeded")
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
