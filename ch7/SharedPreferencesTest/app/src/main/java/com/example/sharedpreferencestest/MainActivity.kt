@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.core.content.edit
 import com.example.sharedpreferencestest.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -15,11 +16,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.saveBtn.setOnClickListener {
-            val editor = getSharedPreferences("data", Context.MODE_PRIVATE).edit()
-            editor.putString("name", "Frank");
-            editor.putInt("age", 28)
-            editor.putBoolean("married", false)
-            editor.apply()
+            // getSharedPreferences("data", Context.MODE_PRIVATE).edit
+            // 为androidx.core:core-ktx内置功能，效果一样
+            getSharedPreferences("data", Context.MODE_PRIVATE).open {
+                putString("name", "Frank")
+                putInt("age", 28)
+                putBoolean("married", false)
+            }
         }
         binding.restoreBtn.setOnClickListener {
             val prefs = getSharedPreferences("data", Context.MODE_PRIVATE)

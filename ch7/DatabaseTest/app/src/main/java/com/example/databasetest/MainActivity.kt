@@ -75,12 +75,12 @@ class MainActivity : AppCompatActivity() {
             db.beginTransaction()
             try {
                 db.delete("Book", null, null)
-                val values = ContentValues().apply {
-                    put("name", "Game of Thrones")
-                    put("author", "George Martin")
-                    put("pages", 720)
-                    put("price", 20.85)
-                }
+                val values = cvOf(
+                    "name" to "Game of Thrones",
+                    "author" to "George Martin",
+                    "pages" to 720,
+                    "price" to 20.85
+                )
                 db.insert("Book", null, values)
                 db.setTransactionSuccessful()
             } catch (e: Exception) {
