@@ -15,4 +15,10 @@
         android:layout_height="wrap_content"
         android:text="Add Data"/>
 
+    <Button
+        android:id="@+id/updateData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update Data"/>
+
 </LinearLayout>
