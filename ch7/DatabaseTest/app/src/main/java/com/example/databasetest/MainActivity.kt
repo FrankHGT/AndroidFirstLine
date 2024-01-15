@@ -1,14 +1,21 @@
 package com.example.databasetest
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.databasetest.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+        const val TAG = "MainActivity"
+    }
+
     private lateinit var binding: ActivityMainBinding
 
+    @SuppressLint("Range")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -43,6 +50,23 @@ class MainActivity : AppCompatActivity() {
         binding.deleteData.setOnClickListener {
             val db = dbHelper.writableDatabase
             db.delete("Book", "pages > ?", arrayOf("500"))
+        }
+        binding.queryData.setOnClickListener {
+            val db = dbHelper.writableDatabase
+            val cursor = db.query("Book", null, null, null, null, null, null);
+            if (cursor.moveToFirst()) {
+                do {
+                    val name = cursor.getString(cursor.getColumnIndex("name"))
+                    val author = cursor.getString(cursor.getColumnIndex("author"))
+                    val pages = cursor.getInt(cursor.getColumnIndex("pages"))
+                    val price = cursor.getDouble(cursor.getColumnIndex("price"))
+                    Log.d(TAG, "book name is $name")
+                    Log.d(TAG, "book author is $author")
+                    Log.d(TAG, "book pages is $pages")
+                    Log.d(TAG, "book price is $price")
+                } while (cursor.moveToNext())
+                cursor.close()
+            }
         }
     }
 }
