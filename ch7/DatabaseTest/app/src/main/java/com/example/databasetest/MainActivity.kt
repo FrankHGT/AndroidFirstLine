@@ -40,5 +40,9 @@ class MainActivity : AppCompatActivity() {
             values.put("price", 10.99)
             db.update("Book", values, "name = ?", arrayOf("The Da Vinci Code"))
         }
+        binding.deleteData.setOnClickListener {
+            val db = dbHelper.writableDatabase
+            db.delete("Book", "pages > ?", arrayOf("500"))
+        }
     }
 }
