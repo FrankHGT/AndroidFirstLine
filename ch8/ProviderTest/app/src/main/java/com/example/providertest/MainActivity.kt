@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         binding.queryData.setOnClickListener {
             val uri = Uri.parse(ProviderProxy.getBookTableUriStr())
             contentResolver.query(uri, null, null, null, null)
-                ?.apply {
+                ?.build {
                 while (moveToNext()) {
                     val name = getString(getColumnIndexOrThrow("name"))
                     val author = getString(getColumnIndexOrThrow("author"))

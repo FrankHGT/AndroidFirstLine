@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
+import android.util.Log
 
 class DatabaseProvider : ContentProvider() {
 
@@ -24,13 +25,18 @@ class DatabaseProvider : ContentProvider() {
 
     private var dbHelper: MyDatabaseHelper? = null
 
-    private val uriMatcher by lazy {
+    private val uriMatcher by later {
         val matcher = UriMatcher(UriMatcher.NO_MATCH)
         matcher.addURI(AUTHORITY, "book", BOOK_DIR)
         matcher.addURI(AUTHORITY, "book/#", BOOK_ITEM)
         matcher.addURI(AUTHORITY, "category", CATEGORY_DIR)
         matcher.addURI(AUTHORITY, "category/#", CATEGORY_ITEM)
         matcher
+    }
+
+    val p by later {
+        Log.d("TAG", "run codes inside later block")
+        "test later"
     }
 
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<String>?) = dbHelper?.let {
