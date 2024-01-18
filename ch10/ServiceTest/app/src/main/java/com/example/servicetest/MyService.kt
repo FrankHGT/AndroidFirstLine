@@ -57,6 +57,10 @@ class MyService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d(TAG, "onStartCommand executed")
+
+        val test = intent?.getBooleanExtra("test", false)
+        Log.d(TAG, "Intent test: $test")
+
         return super.onStartCommand(intent, flags, startId)
     }
 

@@ -38,8 +38,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.startServiceBtn.setOnClickListener {
-            val intent = Intent(this, MyService::class.java)
-            startService(intent)
+            com.example.servicetest.startService<MyService>(this@MainActivity) {
+                putExtra("test", true)
+            }
         }
         binding.stopServiceBtn.setOnClickListener {
             val intent = Intent(this, MyService::class.java)
