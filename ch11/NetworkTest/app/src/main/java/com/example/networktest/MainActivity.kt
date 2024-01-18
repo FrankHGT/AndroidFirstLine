@@ -3,6 +3,8 @@ package com.example.networktest
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.networktest.databinding.ActivityMainBinding
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
@@ -18,7 +20,25 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.sendRequestBtn.setOnClickListener {
-            sendRequestWithHttpURLConnection()
+            sendRequestWithOkHttp()
+        }
+    }
+
+    private fun sendRequestWithOkHttp() {
+        thread {
+            try {
+                val client = OkHttpClient()
+                val request = Request.Builder()
+                    .url("https://www.baidu.com")
+                    .build()
+                val response = client.newCall(request).execute()
+                val responseData = response.body?.string()
+                if (responseData != null) {
+                    showResponse(responseData)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
