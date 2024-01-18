@@ -1,5 +1,7 @@
 package com.example.servicetest
 
+import androidx.constraintlayout.widget.ConstraintSet.Transform
+
 open class Person(val name: String, val age: Int)
 class Student(name: String, age: Int) : Person(name, age)
 class Teacher(name: String, age: Int) : Person(name, age)
@@ -45,6 +47,26 @@ fun covariance() {
     println("student name:${studentData?.name}, age:${studentData?.age}")
 }
 
+interface Transformer<in T> {
+    fun transform(t: T): String
+}
+
+fun handleTransformer(trans: Transformer<Student>) {
+    val student = Student("Allen", 19)
+    val result = trans.transform(student)
+    println("student transform result: $result")
+}
+
+fun contravariance() {
+    val trans = object : Transformer<Person> {
+        override fun transform(t: Person): String {
+            return "${t.name} ${t.age}"
+        }
+    }
+    handleTransformer(trans)
+}
+
 fun main() {
     covariance()
+    contravariance()
 }
